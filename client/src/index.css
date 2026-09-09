@@ -1,0 +1,174 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+:root {
+  /* Surface colors per specification */
+  --bg-app: #080A0F;
+  --surface-primary: #10141C;
+  --surface-elevated: #151A23;
+  --surface-hover: #191F29;
+  --border-subtle: #242B36;
+  --border-strong: #333C4A;
+  
+  /* Text colors */
+  --text-primary: #F3F5F7;
+  --text-secondary: #8B96A8;
+  --text-muted: #5F6A7A;
+  
+  /* Competition room colors */
+  --r154-color: #38BDF8;      /* Cyan / Blue */
+  --r154-deep: #0284C7;
+  --r154-surface: rgba(56, 189, 248, 0.08);
+  
+  --r264-color: #FB7185;      /* Pink / Red */
+  --r264-deep: #E11D48;
+  --r264-surface: rgba(251, 113, 133, 0.08);
+  
+  /* Semantic */
+  --positive: #10B981;
+  --warning-admin: #F59E0B;
+  
+  --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-app);
+  color: var(--text-primary);
+  font-family: var(--font-main);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+/* Typography scale */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-primary);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* Standard surface cards */
+.panel-surface {
+  background-color: var(--surface-primary);
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px;
+}
+
+.panel-elevated {
+  background-color: var(--surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+}
+
+.panel-surface:hover, .panel-elevated:hover {
+  border-color: var(--border-strong);
+}
+
+/* Modals */
+.modal-overlay {
+  background-color: rgba(4, 6, 10, 0.85);
+  backdrop-filter: blur(8px);
+}
+
+.modal-container {
+  background-color: var(--surface-primary);
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.7);
+  border-radius: 16px;
+}
+
+/* Clean Buttons */
+.btn-cyan {
+  background: linear-gradient(135deg, #0284C7, #0369A1);
+  color: #FFFFFF;
+  font-weight: 600;
+  font-size: 12px;
+  padding: 6px 13px;
+  border-radius: 7px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  transition: all 0.15s ease;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.btn-cyan:hover {
+  background: linear-gradient(135deg, #0369A1, #0284C7);
+  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 2px 8px rgba(56, 189, 248, 0.25);
+}
+
+.btn-neutral {
+  background-color: #141A24;
+  color: #E2E8F0;
+  font-weight: 500;
+  font-size: 12px;
+  padding: 6px 13px;
+  border-radius: 7px;
+  border: 1px solid #252F3E;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  transition: all 0.15s ease;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.btn-neutral:hover {
+  background-color: #1A2230;
+  color: #FFFFFF;
+  border-color: #38465C;
+}
+
+.btn-danger {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: #EF4444;
+  font-weight: 600;
+  font-size: 12px;
+  padding: 6px 13px;
+  border-radius: 7px;
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  transition: all 0.15s ease;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.btn-danger:hover {
+  background-color: rgba(239, 68, 68, 0.18);
+  border-color: rgba(239, 68, 68, 0.4);
+}
+
+/* Hairline dividers */
+.divider-subtle {
+  border-color: var(--border-subtle);
+}
+
+/* Subtle scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #242B36;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #333C4A;
+}

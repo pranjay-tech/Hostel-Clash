@@ -1,0 +1,16 @@
+{
+  "name": "room-competition",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently -n \"SERVER,CLIENT\" -c \"blue,cyan\" \"npm run server\" \"npm run client\"",
+    "server": "node server/index.js",
+    "client": "npm --prefix client run dev",
+    "install-all": "npm install && npm --prefix server install && npm --prefix client install",
+    "build": "npm --prefix client run build",
+    "start": "node server/index.js"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}

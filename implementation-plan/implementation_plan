@@ -1,0 +1,245 @@
+# Hostel Competition Dashboard: Room 154 vs Room 264
+
+## Overview & Vision
+A full-stack, responsive web application designed for a year-long friendly hostel competition between 6 college engineering friends across 2 rooms:
+- **Room 154**: **Pranjay** (Lead & Admin), **Abhishek**, **Prakrit**
+- **Room 264**: **Salil**, **Yajas**, **Gopal**
+
+The application tracks individual achievements over time and computes:
+1. **Individual Member Standings**: Total points and progress against category caps.
+2. **Room Totals**: Cumulative points earned by each room's 3 members.
+3. **Room 154 Average vs Room 264 Average**: Normalized score ($\text{Room Total} \div 3.0$).
+4. **Dynamic Head-to-Head Delta**: Real-time margin, leader banner, and year-end winner determination.
+
+All 6 members have access to view all room stats, rankings, and achievements. **Edit, upload, and deletion capabilities are strictly restricted to Pranjay via a secure Admin Passkey.**
+
+---
+
+## Authentication & Access Control Architecture
+
+| User | Role | Access Key | Permissions |
+| :--- | :--- | :--- | :--- |
+| **Pranjay** | Room 154 Lead / System Admin | `pranjay_admin_154` | **Full Admin**: Add, edit, delete achievements, export data |
+| **Pranjay** | Room 154 Member (View) | `pranjay154` | **Read-Only**: Personal scorecard & room dashboard |
+| **Abhishek**| Room 154 Member (View) | `abhishek154` | **Read-Only**: Personal scorecard & room dashboard |
+| **Prakrit** | Room 154 Member (View) | `prakrit154` | **Read-Only**: Personal scorecard & room dashboard |
+| **Salil**   | Room 264 Member (View) | `salil264` | **Read-Only**: Personal scorecard & room dashboard |
+| **Yajas**   | Room 264 Member (View) | `yajas264` | **Read-Only**: Personal scorecard & room dashboard |
+| **Gopal**   | Room 264 Member (View) | `gopal264` | **Read-Only**: Personal scorecard & room dashboard |
+
+> [!NOTE]
+> Member keys allow personalized welcome banners, direct highlighting of that member's contributions, and view-only access. Only the master Admin Passkey unlocks the modal form to insert, update, or remove entries.
+
+---
+
+## Comprehensive Distributed Scoring System (Effort-Anchored)
+
+Semester Ceiling: **1,100 Maximum Theoretical Points / Member** across 6 distinct categories with anti-inflation caps:
+
+```
+DISTRIBUTION MATRIX (1,100 pts max):
+├── 💻 DSA/AI/ML Competitions         : 250 pts max (22.7%)
+├── 🛠️ Engineering Projects & Dev     : 200 pts max (18.2%)
+├── 🏆 Hackathons & Contests          : 200 pts max (18.2%)
+├── 📚 Academics & CGR                : 200 pts max (18.2%)
+├── 💼 Career & Certifications        : 150 pts max (13.6%)
+└── 💪 Fitness, Sports & College Team : 100 pts max (9.1%)
+```
+
+---
+
+### Detailed Parameter Catalogue (All Items Distinct & Logged Separately)
+
+#### 1. 💻 DSA/AI/ML Competitions (Semester Cap: 250 pts)
+* **LeetCode Problems**:
+  - LeetCode Easy Problem: `+1 pt`
+  - LeetCode Medium Problem: `+3 pts`
+  - LeetCode Hard Problem: `+7 pts`
+* **LeetCode Contests & Badges**:
+  - Weekly / Biweekly Contest Participation: `+5 pts`
+  - Top 10% Contest Finish / Rating 1600+: `+15 pts`
+  - LeetCode Knight Title (Rating 1850+): `+35 pts`
+  - LeetCode Guardian Title (Rating 2150+): `+50 pts`
+* **Codeforces Problem Solving (by Official Problem Rating)**:
+  - Rating < 1000: `+1 pt`
+  - Rating 1000 – 1199: `+2 pts`
+  - Rating 1200 – 1399: `+4 pts`
+  - Rating 1400 – 1599: `+7 pts`
+  - Rating 1600 – 1899: `+12 pts`
+  - Rating 1900+: `+20 pts`
+* **Codeforces Contest Performance (by Percentile Rank in Contest)**:
+  - Contest Participation (At least 1 accepted solution): `+5 pts`
+  - Contest Top 50% Finish: `+5 pts`
+  - Contest Top 25% Finish: `+10 pts`
+  - Contest Top 10% Finish: `+15 pts`
+  - Contest Top 5% Finish: `+25 pts`
+* **Codeforces Official Titles**:
+  - Pupil (Rating 1200+): `+15 pts`
+  - Specialist (Rating 1400+): `+30 pts`
+  - Expert (Rating 1600+): `+50 pts`
+* **Kaggle & AI/ML Competitions**:
+  - Kaggle Bronze Medal / Top 10% in AI Contest: `+15 pts`
+  - Kaggle Silver Medal / Top 5% in AI Contest: `+30 pts`
+  - Kaggle Gold Medal / AI Hackathon Prize: `+50 pts`
+
+#### 2. 🛠️ Development & Engineering Projects (Semester Cap: 200 pts)
+* **Frontend / UI Component Project (Live demo & GitHub repo)**: `+15 pts`
+* **Full-Stack Application (Frontend + Backend API + DB deployed)**: `+40 pts`
+* **Advanced Architecture (Docker, Redis/Caching, Auth, or AI/LLM integration)**: `+60 pts`
+* **Production Software (>25 real active users or community adoption)**: `+80 pts`
+* **Open-Source Contribution (Good First Issue / Docs merged)**: `+10 pts`
+* **Open-Source Contribution (Core feature / Major bug fix merged)**: `+25 pts`
+* **Technical Case Study / In-Depth Tech Blog Published**: `+10 pts`
+
+#### 3. 🏆 Hackathons & Tech Competitions (Semester Cap: 200 pts)
+* **Intra-College / Local Hackathon Participant (Working prototype submitted)**: `+15 pts`
+* **Intra-College / Local Hackathon Top 3 Podium Finish**: `+35 pts`
+* **National / Major Hackathon (SIH, EthIndia, etc.) Participant**: `+25 pts`
+* **National / Major Hackathon Finalist (Top 10 / Shortlisted)**: `+50 pts`
+* **National / Major Hackathon Winner / Top 3 Podium**: `+80 pts`
+* **Inter-College Coding Contest / CTF Security Competition Top 5**: `+30 pts`
+
+#### 4. 📚 Academics & CGR Performance (Semester Cap: 200 pts)
+*(Assignments & Lab Vivas removed. Strictly objective examination & attendance criteria).*
+* **CGR Performance Matrix (Scaled by +5 pts per 0.5 step)**:
+  - CGR = 10.0: `+50 pts`
+  - CGR 9.50 – 9.99: `+45 pts`
+  - CGR 9.00 – 9.49: `+40 pts`
+  - CGR 8.50 – 8.99: `+35 pts`
+  - CGR 8.00 – 8.49: `+30 pts`
+  - CGR 7.50 – 7.99: `+25 pts`
+  - CGR 7.00 – 7.49: `+20 pts`
+  - CGR 6.50 – 6.99: `+15 pts`
+  - CGR 6.00 – 6.49: `+10 pts`
+  - CGR < 6.00: `+5 pts`
+* **Midterm Exam Subject Topper / Section Highest**: `+15 pts`
+* **Endterm Subject Grade 10/10**: `+20 pts`
+* **Total Overall Class Attendance in Semester**:
+  - Total Attendance > 90%: `+20 pts`
+  - Total Attendance 80% – 90%: `+10 pts`
+* **Academic / Research Paper Submitted or Published**: `+50 pts`
+
+#### 5. 💼 Career & Professional Milestones (Semester Cap: 150 pts)
+* **ATS-Optimized Tech Resume & Deployed Portfolio Site**: `+15 pts`
+* **Technical Interview Round Cleared (Mock or Real Company)**: `+15 pts`
+* **Formal Internship Offer Received**: `+60 pts`
+* **Internship Successfully Completed (Certificate/Recommendation)**: `+50 pts`
+* **Recognized Cloud/Tech Certification (AWS, GCP, CKA, Azure)**: `+35 pts`
+* **Advanced Technical Specialization / NPTEL Elite Certification**: `+25 pts`
+
+#### 6. 💪 Fitness, Sports & College Team (Semester Cap: 100 pts)
+* **Selected in Official College Team (Sports, Tech, Debate, Esports)**: `+35 pts`
+* **Inter-Hostel / College Sports Tournament Match Victory**: `+15 pts`
+* **Sports Tournament Trophy / College Championship Winner**: `+35 pts`
+* **Weekly Gym / Fitness Consistency (4+ recorded workout sessions)**: `+10 pts`
+* **30-Day Unbroken Fitness Habit**: `+25 pts`
+* **5K Outdoor Run Completed**: `+10 pts`
+* **10K Outdoor Run / Half Marathon Milestone**: `+25 pts`
+
+---
+
+## Room Aggregation & Head-to-Head Math
+- **Member Total Score** = $\sum_{c \in \text{Categories}} \min(\text{Raw Points}_c, \text{Cap}_c)$.
+- **Room 154 Total** = $\text{Score}_{\text{Pranjay}} + \text{Score}_{\text{Abhishek}} + \text{Score}_{\text{Prakrit}}$.
+- **Room 264 Total** = $\text{Score}_{\text{Salil}} + \text{Score}_{\text{Yajas}} + \text{Score}_{\text{Gopal}}$.
+- **Room 154 Average** = $\text{Room 154 Total} \div 3.0$.
+- **Room 264 Average** = $\text{Room 264 Total} \div 3.0$.
+- **Margin / Delta** = $\text{Room 154 Average} - \text{Room 264 Average}$.
+
+---
+
+## Proposed Changes & File Structure
+
+### Backend (Node.js & Express)
+
+#### [NEW] [package.json](file:///c:/Users/Pranjay/Desktop/college/room-competition/package.json)
+- Main project manifest configured with scripts to run backend and client concurrently. Dependencies: `express`, `cors`, `dotenv`, `concurrently`.
+
+#### [NEW] [server/index.js](file:///c:/Users/Pranjay/Desktop/college/room-competition/server/index.js)
+- Express server handling API routing, database file persistence, error handling, and CORS.
+
+#### [NEW] [server/auth.js](file:///c:/Users/Pranjay/Desktop/college/room-competition/server/auth.js)
+- Middleware verifying member access keys and enforcing master admin authorization for mutation endpoints (`POST`, `PUT`, `DELETE`).
+
+#### [NEW] [server/scoringCatalogue.js](file:///c:/Users/Pranjay/Desktop/college/room-competition/server/scoringCatalogue.js)
+- Central source of truth for categories, parameters, default points, and category caps.
+
+#### [NEW] [server/data/db.json](file:///c:/Users/Pranjay/Desktop/college/room-competition/server/data/db.json)
+- JSON database seeded with:
+  - 6 Members across Room 154 and Room 264 with their respective keys.
+  - Initial verified achievements to populate charts and feeds.
+
+#### [NEW] [server/routes/achievements.js](file:///c:/Users/Pranjay/Desktop/college/room-competition/server/routes/achievements.js)
+- REST endpoints:
+  - `GET /api/achievements`: List achievements with filter by room, member, category.
+  - `POST /api/achievements`: Add achievement (Admin protected).
+  - `PUT /api/achievements/:id`: Edit achievement (Admin protected).
+  - `DELETE /api/achievements/:id`: Delete achievement (Admin protected).
+
+#### [NEW] [server/routes/stats.js](file:///c:/Users/Pranjay/Desktop/college/room-competition/server/routes/stats.js)
+- Aggregated computation endpoint returning:
+  - Room 154 total, average, member breakdown, category radar values.
+  - Room 264 total, average, member breakdown, category radar values.
+  - Combined leaderboard (Rank 1 to 6).
+  - Leaderboard trends and winning margin.
+
+---
+
+### Frontend (Vite + React + CSS Design System)
+
+#### [NEW] [client/vite.config.js](file:///c:/Users/Pranjay/Desktop/college/room-competition/client/vite.config.js)
+- Vite configuration with proxy to port 5000.
+
+#### [NEW] [client/src/index.css](file:///c:/Users/Pranjay/Desktop/college/room-competition/client/src/index.css)
+- Premium dark cyber-hostel aesthetic:
+  - Neon Cyan theme (`#00f0ff`) for Room 154.
+  - Electric Magenta / Amber theme (`#ff007a` / `#ffaa00`) for Room 264.
+  - Glassmorphic translucent cards, custom scrollbars, animated glow borders, mobile-first responsive layout.
+
+#### [NEW] [client/src/App.jsx](file:///c:/Users/Pranjay/Desktop/college/room-competition/client/src/App.jsx)
+- Core application state management, tab routing, auth modal, and admin drawer.
+
+#### [NEW] [client/src/components/Header.jsx](file:///c:/Users/Pranjay/Desktop/college/room-competition/client/src/components/Header.jsx)
+- Top navbar with live battle banner, active user indicator, and Admin Key unlock button.
+
+#### [NEW] [client/src/components/ArenaBattleCard.jsx](file:///c:/Users/Pranjay/Desktop/college/room-competition/client/src/components/ArenaBattleCard.jsx)
+- Visual head-to-head arena showcasing Room 154 Avg vs Room 264 Avg, animated lead bar, and point differential.
+
+#### [NEW] [client/src/components/RoomTables.jsx](file:///c:/Users/Pranjay/Desktop/college/room-competition/client/src/components/RoomTables.jsx)
+- Tabbed leaderboards:
+  - *Room 154 Hub*: Pranjay, Abhishek, Prakrit.
+  - *Room 264 Hub*: Salil, Yajas, Gopal.
+  - *Combined Hall of Fame*: Overall 1st to 6th rank with room badges and MVP award.
+
+#### [NEW] [client/src/components/CategoryRadar.jsx](file:///c:/Users/Pranjay/Desktop/college/room-competition/client/src/components/CategoryRadar.jsx)
+- Visual category breakdown comparing which room excels in DSA/AI/ML, Dev, Academics, Hackathons, Career, and Fitness.
+
+#### [NEW] [client/src/components/ActivityFeed.jsx](file:///c:/Users/Pranjay/Desktop/college/room-competition/client/src/components/ActivityFeed.jsx)
+- Chronological timeline of all logged achievements with filters (by room, member, category) and admin edit/delete action triggers.
+
+#### [NEW] [client/src/components/AdminModal.jsx](file:///c:/Users/Pranjay/Desktop/college/room-competition/client/src/components/AdminModal.jsx)
+- Clean, structured form for Pranjay to record achievements with category selector, dynamic parameter dropdown, date picker, proof link, and notes.
+
+#### [NEW] [client/src/components/AuthModal.jsx](file:///c:/Users/Pranjay/Desktop/college/room-competition/client/src/components/AuthModal.jsx)
+- Login dialog supporting both Member Keys (view mode) and the Master Admin Passkey (edit mode).
+
+---
+
+## Verification Plan
+
+### Automated Tests
+1. **Server API Validation**:
+   - Verify `GET /api/stats` accurately aggregates 3 members per room and handles category caps without floating point errors.
+   - Verify `POST /api/achievements` returns `401 Unauthorized` when called without the admin key and `201 Created` with `pranjay_admin_154`.
+2. **Frontend Build**:
+   - Run `npm run build` inside `client` to verify Vite bundle compiles with zero syntax or CSS errors.
+
+### Manual Verification
+1. **End-to-End Walkthrough**:
+   - Launch application via `npm run dev`.
+   - Open browser at `http://localhost:5173`.
+   - Test login with a member key (e.g. `abhishek154`): Verify read-only view, personalized banner, and absence of edit/delete buttons.
+   - Test login with Admin Passkey (`pranjay_admin_154`): Verify Admin Badge unlocks and "Log Achievement" button appears.
+   - Log an achievement from Category 1 (Codeforces rating problem or contest percentile) and Category 4 (CGR score or total attendance > 90%).
+   - Verify the room total, room average, and head-to-head delta update instantly across all views.
+   - Verify responsive display on mobile viewport.

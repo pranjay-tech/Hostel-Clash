@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: room-competition-api
+    runtime: node
+    plan: free
+    buildCommand: npm install --prefix server
+    startCommand: node server/index.js
+    envVars:
+      - key: ADMIN_PASSKEY
+        value: pranjay_admin_45
+      - key: NODE_ENV
+        value: production

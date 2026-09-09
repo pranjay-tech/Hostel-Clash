@@ -1,0 +1,65 @@
+{
+  "members": [
+    {
+      "id": "pranjay",
+      "name": "Pranjay",
+      "room": "154",
+      "accessKey": "pranjay154",
+      "passwordHash": "fb7454c19f41342ddb84165f3038bf0375e261c2562207ec129139f7e4316600",
+      "hasPassword": true,
+      "avatar": "👑",
+      "title": "Room 154 Member"
+    },
+    {
+      "id": "abhishek",
+      "name": "Abhishek",
+      "room": "154",
+      "accessKey": "abhishek154",
+      "passwordHash": null,
+      "hasPassword": false,
+      "avatar": "⚡",
+      "title": "Room 154 Member"
+    },
+    {
+      "id": "prakrit",
+      "name": "Prakrit",
+      "room": "154",
+      "accessKey": "prakrit154",
+      "passwordHash": null,
+      "hasPassword": false,
+      "avatar": "🎯",
+      "title": "Room 154 Member"
+    },
+    {
+      "id": "salil",
+      "name": "Salil",
+      "room": "264",
+      "accessKey": "salil264",
+      "passwordHash": null,
+      "hasPassword": false,
+      "avatar": "🚀",
+      "title": "Room 264 Member"
+    },
+    {
+      "id": "yajas",
+      "name": "Yajas",
+      "room": "264",
+      "accessKey": "yajas264",
+      "passwordHash": null,
+      "hasPassword": false,
+      "avatar": "🔥",
+      "title": "Room 264 Member"
+    },
+    {
+      "id": "gopal",
+      "name": "Gopal",
+      "room": "264",
+      "accessKey": "gopal264",
+      "passwordHash": null,
+      "hasPassword": false,
+      "avatar": "🛡️",
+      "title": "Room 264 Member"
+    }
+  ],
+  "achievements": []
+}
